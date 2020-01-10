@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <style>
+    body {
+        background:#b5d0d0;
+        font-family:Arial;
+    }
+
+    .h1 {
+        color:#285585;
+        padding: 20px
+    }
+    #answer {
+        color:#285585;
+        font-size: 1.5em;
+        padding: 20px;
+        font-weight:300;
+    }
+  
+    </style>
+	 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+</head>
+
+<body>
+
+    <h1>Who is it?</h1>
+
+    <div id="testthing">Not working yet</div>
+    <div id="answer">Not here.</div>
+
+	
+
+	<script>
+
+
+function isIt () {
+
+    if (personyes==true){
+        var elem = document.getElementById('answer');
+        elem.style.color = "red";
+        elem.innerHTML = "Yay!!";
+        document.body.style.background="#ffee00";
+        
+    } else {
+        //console.log("Not Germany")
+        var elem = document.getElementById('answer');
+        elem.style.color = "#285585";
+        elem.innerHTML = "Better luck next time";
+        document.body.style.background="#b5d0d0";
+    }
+}
+
+var thequiz = {
+  "Quiz_01":{
+    "title":"My president quiz",
+    "intro":"Do you know your presidents?",
+    "items":[
+      {
+        "name":"Andrés Manuel López Obrador",
+        "role1":"Mexican President",
+        "role2":"",
+        "role3":"",
+        "role4":"",
+        "img":"",
+        "value":0,
+        "learnt":0,
+        "date_added":"2019-09-16"
+      },
+      {
+        "name":"Iván Duque Márquez",
+        "role1":"Colombian President",
+        "role2":"",
+        "role3":"",
+        "role4":"",
+        "img":"",
+        "value":0,
+        "learnt":0,
+        "date_added":"2019-09-16"
+      },
+      {
+        "name":"Lenín Moreno",
+        "role1":"Ecuadorean President",
+        "role2":"",
+        "role3":"",
+        "role4":"",
+        "img":"",
+        "value":0,
+        "learnt":0,
+        "date_added":"2019-09-16"
+      },
+      {
+        "name":"Evo Morales",
+        "role1":"Bolivian President",
+        "role2":"",
+        "role3":"",
+        "role4":"",
+        "img":"",
+        "value":0,
+        "learnt":0,
+        "date_added":"2019-09-16"
+      },
+      {
+        "name":"Mauricio Macri",
+        "role1":"Argentinian President",
+        "role2":"",
+        "role3":"",
+        "role4":"",
+        "img":"",
+        "value":0,
+        "learnt":0,
+        "date_added":"2019-09-16"
+      }
+    ]
+  }
+}
+
+</script>
+
+
+</body>
+</html>
