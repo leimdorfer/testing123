@@ -11,111 +11,164 @@
 
     .h1 {
         color:#285585;
-        padding: 20px
+        padding: 15px
     }
-    #answer {
+    #message {
         color:#285585;
-        font-size: 1.5em;
-        padding: 20px;
+        font-size: 1.3em;
+        padding: 10px;
         font-weight:300;
     }
+    .answer {
+        display:block;
+        font-size: 1em;
+        padding: 5px;
+        border: 2px solid black;
+        width: 400px;
+    }
+
+    .answer:hover{
+        border-color: #666 #666 #666 #666;
+        background:#ccc;
+        cursor: pointer;
+
+}
   
     </style>
-	 <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 </head>
 
 <body>
 
     <h1>Who is it?</h1>
 
-    <div id="testthing">Not working yet</div>
-    <div id="answer">Not here.</div>
+    <div id="testthing">testthing</div>
+    <div id="message">Select your answer:</div>
 
-	
+    <div id="answers"></div>
+
+
 
 	<script>
 
+    var the_answer;
 
-function isIt () {
+    function isItTheRightAnswer (check_this) {
 
-    if (personyes==true){
-        var elem = document.getElementById('answer');
-        elem.style.color = "red";
-        elem.innerHTML = "Yay!!";
-        document.body.style.background="#ffee00";
-        
-    } else {
-        //console.log("Not Germany")
-        var elem = document.getElementById('answer');
-        elem.style.color = "#285585";
-        elem.innerHTML = "Better luck next time";
-        document.body.style.background="#b5d0d0";
+        //console.log(check_this.attributes.value.value);
+        // There has to be a better way to do this!
+
+        if (check_this.innerHTML===the_answer){
+
+            var elem = document.getElementById('message');
+            elem.style.color = "red";
+            elem.innerHTML = "Yay!!";
+            document.body.style.background="#ffee00";
+
+        } else {
+
+            var elem = document.getElementById('message');
+            elem.style.color = "#285585";
+            elem.innerHTML = "Better luck next time";
+            document.body.style.background="#b5d0d0";
+
+        }
+
+    };
+
+    function getRandomInt() {
+      min = Math.ceil(0);
+      max = Math.floor(5);
+      return Math.floor(Math.random() * (max - min)) + min; 
     }
-}
 
-var thequiz = {
-  "Quiz_01":{
-    "title":"My president quiz",
-    "intro":"Do you know your presidents?",
-    "items":[
+    function shuffle(array) {
+
+        //https://bost.ocks.org/mike/shuffle/
+
+        var m = array.length, t, i;
+
+        // While there remain elements to shuffle…
+        while (m) {
+
+        // Pick a remaining element…
+        i = Math.floor(Math.random() * m--);
+
+        // And swap it with the current element.
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+      }
+
+      return array;
+    }
+
+    function makeQuiz() {
+
+        //Randomise which one we're going to test
+        var test_this_one = getRandomInt();
+
+        // and get the name and set the answer
+        var test_thing_value = quiz_test_items[test_this_one].name;
+        the_answer = quiz_test_items[test_this_one].role1;
+
+        //Put the name in 'testthing' element
+        var elem = document.getElementById('testthing');             
+        elem.innerHTML = test_thing_value;
+
+        //Now randomise the order of the answers
+        var shuffled_array = shuffle(quiz_test_items);
+
+        //Make an array of the answers elements
+        var answers_elements = "";
+
+        for (var i = 0, length = shuffled_array.length; i < length; i++) {
+
+            var this_answer_element = '<div onclick="isItTheRightAnswer(this)" name="person" class="answer">'+ shuffled_array[i].role1 +"</div><br>";
+
+            //console.log(this_answer_element);
+
+            answers_elements+=this_answer_element;
+
+        }
+
+        //print them to the page
+
+        var answers_list_elem = document.getElementById('answers');             
+            answers_list_elem.innerHTML = answers_elements;
+
+    }   
+
+
+    var quiz_test_items = [
       {
         "name":"Andrés Manuel López Obrador",
         "role1":"Mexican President",
-        "role2":"",
-        "role3":"",
-        "role4":"",
-        "img":"",
-        "value":0,
-        "learnt":0,
-        "date_added":"2019-09-16"
+        "img":""
       },
       {
         "name":"Iván Duque Márquez",
         "role1":"Colombian President",
-        "role2":"",
-        "role3":"",
-        "role4":"",
-        "img":"",
-        "value":0,
-        "learnt":0,
-        "date_added":"2019-09-16"
+        "img":""
       },
       {
         "name":"Lenín Moreno",
         "role1":"Ecuadorean President",
-        "role2":"",
-        "role3":"",
-        "role4":"",
-        "img":"",
-        "value":0,
-        "learnt":0,
-        "date_added":"2019-09-16"
+        "img":""
       },
       {
-        "name":"Evo Morales",
+        "name":"Jeanine Añez",
         "role1":"Bolivian President",
-        "role2":"",
-        "role3":"",
-        "role4":"",
-        "img":"",
-        "value":0,
-        "learnt":0,
-        "date_added":"2019-09-16"
+        "img":""
       },
       {
-        "name":"Mauricio Macri",
+        "name":"Alberto Fernandez",
         "role1":"Argentinian President",
-        "role2":"",
-        "role3":"",
-        "role4":"",
-        "img":"",
-        "value":0,
-        "learnt":0,
-        "date_added":"2019-09-16"
+        "img":""
       }
-    ]
-  }
-}
+    ];
+
+    makeQuiz();
+
 
 </script>
 
