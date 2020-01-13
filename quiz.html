@@ -39,12 +39,17 @@
 
 <body>
 
-    <h1>Who is it?</h1>
+    <h1>Who does what?</h1>
 
-    <div id="testthing">testthing</div>
+    <div id="testthing"></div>
     <div id="message">Select your answer:</div>
-
     <div id="answers"></div>
+
+    <a id="myLink" title="Start a who quiz"
+ href="#" onclick="makeQuiz('who');return false;">Start a who quiz</a> <br>
+     <a id="myLink" title="Start a what quiz"
+ href="#" onclick="makeQuiz('what');return false;">Start a what quiz</a> 
+
 
 
 
@@ -75,6 +80,13 @@
 
     };
 
+    function resetQuiz(){
+        var elem = document.getElementById('message');
+        elem.style.color = "#285585";
+        elem.innerHTML = "Select your answer:";
+        document.body.style.background="#cccccc";
+    }
+
     function getRandomInt() {
       min = Math.ceil(0);
       max = Math.floor(5);
@@ -102,14 +114,20 @@
       return array;
     }
 
-    function makeQuiz() {
+    function makeQuiz(quizType) {
 
         //Randomise which one we're going to test
         var test_this_one = getRandomInt();
 
-        // and get the name and set the answer
-        var test_thing_value = quiz_test_items[test_this_one].name;
-        the_answer = quiz_test_items[test_this_one].role1;
+        // set the test and set the answer
+        if (quizType==='what'){
+            var test_thing_value = quiz_test_items[test_this_one].name;
+            the_answer = quiz_test_items[test_this_one].role1;
+        } else {
+            var test_thing_value = quiz_test_items[test_this_one].role1;
+            the_answer = quiz_test_items[test_this_one].name;
+        }
+        
 
         //Put the name in 'testthing' element
         var elem = document.getElementById('testthing');             
@@ -123,7 +141,13 @@
 
         for (var i = 0, length = shuffled_array.length; i < length; i++) {
 
-            var this_answer_element = '<div onclick="isItTheRightAnswer(this)" name="person" class="answer">'+ shuffled_array[i].role1 +"</div><br>";
+            if (quizType==='what'){ 
+                var answer_option = shuffled_array[i].role1;
+            } else {
+                var answer_option = shuffled_array[i].name;
+            }
+
+            var this_answer_element = '<div onclick="isItTheRightAnswer(this)" class="answer">'+ answer_option +"</div><br>";
 
             //console.log(this_answer_element);
 
@@ -167,7 +191,6 @@
       }
     ];
 
-    makeQuiz();
 
 
 </script>
